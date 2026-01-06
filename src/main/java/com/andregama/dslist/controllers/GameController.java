@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.andregama.dslist.dto.GameMinDTO;
+import com.andregama.dslist.response.ApiResponse;
 import com.andregama.dslist.services.GameService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 
 @RestController
 @RequestMapping("/games")
@@ -20,7 +20,12 @@ public class GameController {
     private GameService gameService;
 
     @GetMapping
-    public List<GameMinDTO> findAll() {
-        return gameService.findAll();    
+    public ApiResponse<List<GameMinDTO>> findAll() {
+        return new ApiResponse<>(
+            200,
+            "Lista de jogos carregada com sucesso",
+            gameService.findAll(),
+            null
+        );
     }
 }
