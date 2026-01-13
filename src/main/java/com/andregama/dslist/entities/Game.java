@@ -1,7 +1,5 @@
 package com.andregama.dslist.entities;
 
-import java.util.Objects;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,7 +8,6 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_game")
-
 public class Game {
 
     @Id
