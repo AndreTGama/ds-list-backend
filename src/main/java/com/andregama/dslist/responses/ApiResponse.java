@@ -1,4 +1,4 @@
-package com.andregama.dslist.response;
+package com.andregama.dslist.responses;
 
 public class ApiResponse<T> {
 
