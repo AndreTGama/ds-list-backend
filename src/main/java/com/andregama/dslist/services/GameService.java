@@ -10,6 +10,7 @@ import com.andregama.dslist.dto.GameDTO;
 import com.andregama.dslist.dto.GameMinDTO;
 import com.andregama.dslist.entities.Game;
 import com.andregama.dslist.exceptions.ResourceNotFoundException;
+import com.andregama.dslist.projections.GameMinProjection;
 import com.andregama.dslist.repositories.GameRepository;
 
 @Service
@@ -28,6 +29,12 @@ public class GameService {
     @Transactional(readOnly = true)
     public List<GameMinDTO> findAll() {
         List<Game> result = gameRepository.findAll();
+        return result.stream().map(x -> new GameMinDTO(x)).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<GameMinDTO> findByList(Long listId) {
+        List<GameMinProjection> result = gameRepository.searchByList(listId);
         return result.stream().map(x -> new GameMinDTO(x)).toList();
     }
 }
