@@ -45,11 +45,20 @@ public class GameController {
 
     @GetMapping
     public ApiResponse<List<GameMinDTO>> findAll() {
-        return new ApiResponse<>(
-            200,
-            "Lista de jogos carregada com sucesso",
-            gameService.findAll(),
-            null
-        );
+        try {
+            return new ApiResponse<>(
+                200,
+                "Lista de jogos carregada com sucesso",
+                gameService.findAll(),
+                null
+            );
+        } catch (Exception e) {
+            return new ApiResponse<>(
+                500,
+                "Erro ao carregar a lista de jogos",
+                null,
+                null
+            );
+        }
     }
 }
