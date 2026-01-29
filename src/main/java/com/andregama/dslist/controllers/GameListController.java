@@ -35,11 +35,21 @@ public class GameListController {
 
     @GetMapping(value = "/{listId}/games")
     public ApiResponse<List<GameMinDTO>> findByList(@PathVariable Long listId) {
-        return new ApiResponse<>(
+        try {
+            return new ApiResponse<>(
                 200,
                 "Lista de jogos carregada com sucesso",
                 gameService.findByList(listId),
                 null);
+        } catch (Exception e) {
+            return new ApiResponse<>(
+                500,
+                e.getMessage(),
+                null,
+                null
+            );
+        }
+        
     }
 
 }
