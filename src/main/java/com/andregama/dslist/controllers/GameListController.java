@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.andregama.dslist.dto.GameListDTO;
 import com.andregama.dslist.dto.GameMinDTO;
+import com.andregama.dslist.dto.ReplacementDTO;
 import com.andregama.dslist.responses.ApiResponse;
 import com.andregama.dslist.services.GameListService;
 import com.andregama.dslist.services.GameService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/lists")
@@ -50,6 +53,25 @@ public class GameListController {
             );
         }
         
+    }
+
+    @PostMapping(value = "/{listId}/replacement")
+    public ApiResponse<String> move(@PathVariable Long listId, @RequestBody ReplacementDTO request) {
+        try {
+            gameListService.move(listId, request.getSourceIndex(), request.getDestinationIndex());
+            return new ApiResponse<>(
+                200,
+                "Movimentação realizada com sucesso",
+                null,
+                null);
+        } catch (Exception e) {
+            return new ApiResponse<>(
+                500,
+                e.getMessage(),
+                null,
+                null
+            );
+        }
     }
 
 }
