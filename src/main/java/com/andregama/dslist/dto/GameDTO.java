@@ -1,7 +1,6 @@
 package com.andregama.dslist.dto;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.context.annotation.Bean;
 
 import com.andregama.dslist.entities.Game;
 
