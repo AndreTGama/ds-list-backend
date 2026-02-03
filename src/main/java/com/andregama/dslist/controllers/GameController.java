@@ -8,11 +8,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.andregama.dslist.dto.GameDTO;
 import com.andregama.dslist.dto.GameMinDTO;
+import com.andregama.dslist.dto.Game.Request.StoreGameRequestDTO;
 import com.andregama.dslist.exceptions.ResourceNotFoundException;
 import com.andregama.dslist.responses.ApiResponse;
 import com.andregama.dslist.services.GameService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @RestController
@@ -21,7 +25,6 @@ public class GameController {
 
     @Autowired
     private GameService gameService;
-
 
     @GetMapping(value = "/{id}")
     public ApiResponse<GameDTO> findById(@PathVariable Long id) {
@@ -61,4 +64,25 @@ public class GameController {
             );
         }
     }
+
+    @PostMapping()
+    public ApiResponse<GameMinDTO> store(@RequestBody StoreGameRequestDTO entity) {
+        try {
+            GameMinDTO gameMinDTO = gameService.store(entity);
+            return new ApiResponse<>(
+                200,
+                "Jogo salvo com sucesso",
+                gameMinDTO,
+                null
+            );
+        } catch (Exception e) {
+            return new ApiResponse<>(
+                500,
+                "Erro ao salvar o jogo",
+                null,
+                e.getMessage()
+            );
+        }
+    }
+    
 }
